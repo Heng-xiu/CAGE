@@ -19,7 +19,7 @@ The experiments reported in the papers [1] use the following datasets:
 ## CAGE
 Description
 
-![Fig. 1 - Context-Aware Graph Embedding (CAGE) framework for session-based news recommendation]()
+![Fig. 1 - Context-Aware Graph Embedding (CAGE) framework for session-based news recommendation](https://github.com/Heng-xiu/CAGE/blob/main/assets/CAGE_framework.png)
 > Fig. 1 - Context-Aware Graph Embedding (CAGE) framework for session-based news recommendation
 
 ## Article Content Representation (ACR) module
