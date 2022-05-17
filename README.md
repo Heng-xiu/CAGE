@@ -3,7 +3,7 @@ Code release for ["Context-Aware Graph Embedding (CAGE) framework for session-ba
 and ["Knowledge-Guided Article Embedding Refinement for Session-Based News Recommendation"](https://ieeexplore.ieee.org/document/9449913/)[2]
 
 ## Publications
-[1] Heng-Shiou Sheu and Sheng Li. 2020. Context-aware Graph Embedding for Session-based News Recommendation. In Fourteenth ACM Conference on Recommender Systems (RecSys '20). Association for Computing Machinery, New York, NY, USA, 657–662. [DOI:https://doi.org/10.1145/3383313.3418477](https://doi.org/10.1145/3383313.3418477)
+[1] Heng-Shiou Sheu and Sheng Li. 2020. Context-aware Graph Embedding for Session-based News Recommendation. In Fourteenth ACM Conference on Recommender Systems (RecSys '20). Association for Computing Machinery, New York, NY, USA, 657–662. [DOI:https://doi.org/10.1145/3383313.3418477](https://doi.org/10.1145/3383313.3418477)  
 [2] Heng-Shiou Sheu, Zhixuan Chu, Daiqing Qi and Sheng Li. "Knowledge-Guided Article Embedding Refinement for Session-Based News Recommendation," in IEEE Transactions on Neural Networks and Learning Systems, [doi: 10.1109/TNNLS.2021.3084958.](https://doi.org/10.1109/TNNLS.2021.3084958).
 
 ## Implementation
