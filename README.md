@@ -46,14 +46,14 @@ After training, the *Article Content Embeddings* for news articles (NumPy matrix
 The creators of the [Adressa dataset](http://reclab.idi.ntnu.no/dataset) can make available the full textual content of articles upon request. After download their data, you must follow this steps:
 
 1. As Adressa has provided a large dataset, the first pre-processing step is performed using Spark. 
-	1. Create a Spark cluster ([dataproc_preprocessing/create_cluster.sh]()) on GCP Dataproc
-	2. Open a Jupyter session ([dataproc_preprocessing/browse_cluster.sh]())
-	3. Upload the preprocessing notebook ([dataproc_preprocessing/nar_preprocessing_addressa_01_dataproc.ipynb]()), adjust the GCS path where the Adressa dataset was uploaded and run the notebook. 
+	1. Create a Spark cluster ([dataproc_preprocessing/create_cluster.sh](https://github.com/Heng-xiu/CAGE/blob/master/nar_module/scripts/dataproc_preprocessing/create_cluster.sh)) on GCP Dataproc
+	2. Open a Jupyter session ([dataproc_preprocessing/browse_cluster.sh](https://github.com/Heng-xiu/CAGE/blob/master/nar_module/scripts/dataproc_preprocessing/browse_cluster.sh))
+	3. Upload the preprocessing notebook ([dataproc_preprocessing/nar_preprocessing_addressa_01_dataproc.ipynb](https://github.com/Heng-xiu/CAGE/blob/master/nar_module/scripts/dataproc_preprocessing/nar_preprocessing_addressa_01_dataproc.ipynb)), adjust the GCS path where the Adressa dataset was uploaded and run the notebook. 
 	4. Download the sessions JSON lines and the pickle with nar_encoders_dict, exported by the notebook, to be used by the 2nd step of pre-processing
-	5. Destroy the Spark cluster ([dataproc_preprocessing/destroy_cluster.sh]())
+	5. Destroy the Spark cluster ([dataproc_preprocessing/destroy_cluster.sh](https://github.com/Heng-xiu/CAGE/blob/master/nar_module/scripts/dataproc_preprocessing/browse_cluster.sh))
 
-2. Run the 2nd pre-processing step ([run_acr_preprocessing_adressa.sh]()) 
-3. Run the training and evaluation script ([run_acr_training_adressa_local.sh]()), to generate the Article Content Embeddings with the ACR module. 
+2. Run the 2nd pre-processing step ([run_acr_preprocessing_adressa.sh](https://github.com/Heng-xiu/CAGE/blob/master/acr_module/scripts/run_acr_preprocessing_adressa.sh)) 
+3. Run the training and evaluation script ([run_acr_training_adressa_local.sh](https://github.com/Heng-xiu/CAGE/blob/master/acr_module/scripts/run_acr_training_adressa_local.sh)), to generate the Article Content Embeddings with the ACR module. 
 
 
 ### Pre-processing data for the ACR module
@@ -81,10 +81,10 @@ python3 -m acr.preprocessing.acr_preprocess_adressa \
  	--articles_by_tfrecord 1000
 ```
 
-> From [acr_module/scripts/run_acr_preprocessing_adressa.sh]()
+> From [acr_module/scripts/run_acr_preprocessing_adressa.sh](https://github.com/Heng-xiu/CAGE/blob/master/acr_module/scripts/run_acr_preprocessing_adressa.sh)
 
 ### Training ACR module
-The ACR module can be trained either **locally** (example below) or using **GCP ML Engine** ([run_acr_training_gcom_mlengine.sh]()).
+The ACR module can be trained either **locally** (example below) or using **GCP ML Engine** ([run_acr_training_gcom_mlengine.sh](https://github.com/Heng-xiu/CAGE/blob/master/acr_module/scripts/run_acr_training_adressa_mlengine.sh)).
 
 The path of pre-processed TFRecords is informed in *train_set_path_regex* parameter, as well as the other *ACR* exported assets (*input_word_vocab_embeddings_path* and *input_label_encoders_path*). The trained *Article Content Embeddings* (NumPy matrix), with the dimensions specified by *acr_embeddings_size*, are exported (Pickle dump file) after training to *output_acr_metadata_embeddings_path*, for further usage by the *NAR* module.
 
@@ -117,7 +117,7 @@ python3 -m acr.acr_trainer_adressa \
 	--rnn_direction "unidirectional" \
 	--acr_embeddings_size 250
 ```
-> From [run_acr_training_adressa_local.sh]()
+> From [run_acr_training_adressa_local.sh](https://github.com/Heng-xiu/CAGE/blob/master/acr_module/scripts/run_acr_training_adressa_local.sh)
 
 ## Next-Article Recommendation (NAR) module
 
@@ -134,12 +134,12 @@ In most deep learning architectures proposed for RS, the neural network outputs 
 
 For this reason, instead of using a softmax cross-entropy loss, the NAR module is trained to maximize the similarity between the *Predicted Next-Article Embedding* and the *User-Personalized Contextual Article Embedding* corresponding to the next article actually read by the user in his session (positive sample), whilst minimizing its similarity with negative samples (articles not read by the user during the session). With this strategy to deal with item cold-start, a newly published article might be immediately recommended, as soon as its *Article Content Embedding* is trained and added to a repository.
 
-The following example commands are for the Globo.com dataset. For the Adressa dataset, you want to use [run_nar_preprocessing_adressa.sh]() for pre-processing and [run_nar_train_adressa_local.sh]() for training and evaluation.
+The following example commands are for the Globo.com dataset. For the Adressa dataset, you want to use [run_nar_preprocessing_adressa.sh](https://github.com/Heng-xiu/CAGE/blob/master/nar_module/scripts/run_nar_preprocessing_adressa.sh) for pre-processing and [run_nar_train_adressa_local.sh](https://github.com/Heng-xiu/CAGE/blob/master/nar_module/scripts/run_nar_train_adressa_local.sh) for training and evaluation.
 
 ### Pre-processing data for the NAR module
 The NAR module expects TFRecord files containing [SequenceExamples](https://www.tensorflow.org/api_docs/python/tf/train/SequenceExample) of user sessions's context and clicked articles.
 
-The following example command ([run_nar_preprocessing_adressa.sh]()) takes the path of CSV files, containing users sessions split by hour (*input_clicks_csv_path_regex*), and outputs the corresponding TFRecord files.
+The following example command ([run_nar_preprocessing_adressa.sh](https://github.com/Heng-xiu/CAGE/blob/master/nar_module/scripts/run_nar_preprocessing_adressa.sh)) takes the path of CSV files, containing users sessions split by hour (*input_clicks_csv_path_regex*), and outputs the corresponding TFRecord files.
 
 ```bash
 cd nar_module && \
@@ -225,7 +225,7 @@ python3 -m nar.nar_trainer_adressa \
 	--novelty_reg_factor 0.0 \
 	--disable_eval_benchmarks
 ```
-> From [run_nar_train_adressa_local.sh]()
+> From [run_nar_train_adressa_local.sh](https://github.com/Heng-xiu/CAGE/blob/master/nar_module/scripts/run_nar_train_adressa_local.sh)
 
 #### ML Engine training and evaluation of NAR module
 When training the *NAR* module in GCP ML Engine, two parameters are specially important:
@@ -287,7 +287,7 @@ gcloud --project ${PROJECT_ID} ml-engine jobs submit training ${JOB_ID} \
 	--novelty_reg_factor 0.0 \
 	--disable_eval_benchmarks
 ```
-> [run_nar_train_gcom_mlengine.sh]()
+> [run_nar_train_gcom_mlengine.sh](https://github.com/gabrielspmoreira/chameleon_recsys/blob/master/nar_module/scripts/run_nar_train_gcom_mlengine.sh)
 [WIP] run_nar_train_adressa_mlengine.sh 
 
 ## Semantic-level embedding
