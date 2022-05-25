@@ -37,9 +37,11 @@ After training, the *Article Content Embeddings* for news articles (NumPy matrix
 
 ### Important notes about experiments with the ACR module
 
+<!--
 #### Globo.com dataset
 
 **It was not possible to share the articles' textual content for [Globo.com dataset](https://www.kaggle.com/gspmoreira/news-portal-user-interactions-by-globocom) due to licensing reasons. Although, it is not necessary to run the ACR module pre-processing and training commands (presented in the following subsections), since the trained Article Content Embeddings (*articles_embeddings.pickle*) and Article Metadata (*articles_metadata.csv*) were already been provided with the [dataset](https://www.kaggle.com/gspmoreira/news-portal-user-interactions-by-globocom).**
+-->
 
 #### Adressa dataset
 
@@ -62,8 +64,8 @@ P.s. Again, you will not be able to run the corresponding pre-processing script 
 
 It allows to specify the path of a CSV containing articles text and metadata (*input_articles_csv_path*), the path of pre-trained word embeddings and exports articles data into TFRecords format into *output_tf_records_path*, including the dictionaries that mapped tokenized words to sequences of int (*output_word_vocab_embeddings_path*) and metadata the categorical features encoders (*output_label_encoders*). 
 
-The word embeddings (*input_word_embeddings_path* parameter) must be in [Gensim format](https://radimrehurek.com/gensim/models/word2vec.html), either in binary or plain text format. For Globo.com dataset, we used pre-trained Portuguese word embeddings (skip-gram model (300 dimensions), available [here](http://nilc.icmc.usp.br/embeddings) and for Adressa dataset we used Norwegian word-embeddings (skip-gram model with 100 dimen-
-sions (model #100), available [here](http://vectors.nlpl.eu/repository)).
+The word embeddings (*input_word_embeddings_path* parameter) must be in [Gensim format](https://radimrehurek.com/gensim/models/word2vec.html), either in binary or plain text format. <!-- For Globo.com dataset, we used pre-trained Portuguese word embeddings (skip-gram model (300 dimensions), available [here](http://nilc.icmc.usp.br/embeddings) and for Adressa dataset we used Norwegian word-embeddings (skip-gram model with 100 dimen-
+sions (model #100), available [here](http://vectors.nlpl.eu/repository)). -->
 
 ```bash
 #!/bin/bash
@@ -134,7 +136,7 @@ In most deep learning architectures proposed for RS, the neural network outputs 
 
 For this reason, instead of using a softmax cross-entropy loss, the NAR module is trained to maximize the similarity between the *Predicted Next-Article Embedding* and the *User-Personalized Contextual Article Embedding* corresponding to the next article actually read by the user in his session (positive sample), whilst minimizing its similarity with negative samples (articles not read by the user during the session). With this strategy to deal with item cold-start, a newly published article might be immediately recommended, as soon as its *Article Content Embedding* is trained and added to a repository.
 
-The following example commands are for the Globo.com dataset. For the Adressa dataset, you want to use [run_nar_preprocessing_adressa.sh](https://github.com/Heng-xiu/CAGE/blob/master/nar_module/scripts/run_nar_preprocessing_adressa.sh) for pre-processing and [run_nar_train_adressa_local.sh](https://github.com/Heng-xiu/CAGE/blob/master/nar_module/scripts/run_nar_train_adressa_local.sh) for training and evaluation.
+<!--The following example commands are for the Globo.com dataset.  --> For the Adressa dataset, you want to use [run_nar_preprocessing_adressa.sh](https://github.com/Heng-xiu/CAGE/blob/master/nar_module/scripts/run_nar_preprocessing_adressa.sh) for pre-processing and [run_nar_train_adressa_local.sh](https://github.com/Heng-xiu/CAGE/blob/master/nar_module/scripts/run_nar_train_adressa_local.sh) for training and evaluation.
 
 ### Pre-processing data for the NAR module
 The NAR module expects TFRecord files containing [SequenceExamples](https://www.tensorflow.org/api_docs/python/tf/train/SequenceExample) of user sessions's context and clicked articles.
